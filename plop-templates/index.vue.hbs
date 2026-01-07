@@ -1,0 +1,36 @@
+
+
+<template>
+    <div class="{{ class }}"></div>
+</template>
+
+<script lang="ts">
+import {
+    defineComponent,
+    PropType
+} from 'vue';
+import { {{ componentName }}Props, {{ componentName }}Enum } from './typing'
+import { data } from './data'
+import { use{{componentName}} } from './hook'
+export default defineComponent({
+    name: `{{ componentName }}`,
+    components: {},
+    props:{
+         
+        // 示例,使用 PropType 强制指定接口类型
+        user: {
+            type: Object as PropType<{{ componentName }}Props['user']>,
+            required: false,
+        },
+    },
+    setup(props, { emit }) {
+        const { } = use{{componentName}}(props)
+        return {};
+    },
+});
+</script>
+
+<style lang="scss" scoped>
+@import './index.scss';
+// 如果有用到v-bind(),它在index.scss中定义会不生效,请在该文件内写入对应的样式。
+</style>
