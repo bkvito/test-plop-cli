@@ -12,9 +12,11 @@ import {
 import { {{ componentName }}Props, {{ componentName }}Enum } from './typing'
 import { data } from './data'
 import { use{{componentName}} } from './hook'
+import emitter, { useEmitter, useTimeline } from '@/base/toolkit';
+import SinglePickButtonGroup, { ButtonGroupItem } from '@/components/common/SinglePickButtonGroup';
 export default defineComponent({
     name: `{{ componentName }}`,
-    components: {},
+    components: { SinglePickButtonGroup },
     props:{
          
         // 示例,使用 PropType 强制指定接口类型
@@ -24,7 +26,22 @@ export default defineComponent({
         },
     },
     setup(props, { emit }) {
+
+        useEmitter([
+            {
+                eventName:'xxxxxx',
+                callback:()=>{
+                    // TODO
+                }
+            }
+        ])
+
+        useTimeline(({currentTime,productTypes})=>{
+            // TODO  产品绑定时间轴，时间轴变化请求数据
+        })
         const { } = use{{componentName}}(props)
+
+
         return {};
     },
 });
