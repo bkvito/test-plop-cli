@@ -17,8 +17,7 @@ import SinglePickButtonGroup, { ButtonGroupItem } from '@/components/common/Sing
 export default defineComponent({
     name: `{{ componentName }}`,
     components: { SinglePickButtonGroup },
-    props:{
-         
+    props:{         
         // 示例,使用 PropType 强制指定接口类型
         user: {
             type: Object as PropType<{{ componentName }}Props['user']>,
@@ -29,9 +28,9 @@ export default defineComponent({
 
         useEmitter([
             {
-                eventName:'xxxxxx',
-                callback:()=>{
-                    // TODO
+                eventName:'test',
+                callback:()=> {
+                    // TODO  
                 }
             }
         ])
