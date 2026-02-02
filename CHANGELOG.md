@@ -1,5 +1,11 @@
 # create-vue-component-template
 
+## 1.0.7
+
+### Patch Changes
+
+- 完善 hooks
+
 ## 1.0.6
 
 ### Patch Changes
