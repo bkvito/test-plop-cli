@@ -1,2 +1,25 @@
 import { {{ componentName }}Props } from './typing'
-export const use{{componentName}} = (props: {{componentName}}Props) => ({})
+import { useTimeline } from '@/hooks';
+import emitter, { useEmitter } from '@/base/toolkit';
+import { usePlatformStore, useProductStore } from '@/store';
+export const use{{componentName}} = (props: {{componentName}}Props) => {
+    const model = ref<string>('')
+    const platformStore = usePlatformStore();
+    const productStore = useProductStore();
+    
+    useTimeline(model,({currentTime,productTypes})=>{
+        // TODO  产品绑定时间轴，时间轴变化请求数据
+    })
+    useEmitter([
+        {
+            eventName:'test',
+            callback:()=> {
+                // TODO  
+            }
+        }
+    ])
+    
+    return {
+        model
+    }
+}
