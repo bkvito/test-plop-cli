@@ -1,0 +1,25 @@
+<template>
+    <div class="{{ class }}"></div>
+</template>
+
+<script setup lang="ts">
+import { {{ componentName }}Props, {{ componentName }}Enum } from './typing'
+import { use{{componentName}} } from './hook'
+import SinglePickButtonGroup from '@/components/common/SinglePickButtonGroup';
+
+defineOptions({
+    name: `{{ componentName }}`
+});
+
+const props = defineProps<{{ componentName }}Props>();
+
+// withDefaults(defineProps<{{ componentName }}Props>(), {});
+
+const { } = use{{componentName}}(props);
+
+</script>
+
+<style lang="scss" scoped>
+@import './index.scss';
+// 如果有用到v-bind(),它在index.scss中定义会不生效,请在该文件内写入对应的样式。
+</style>

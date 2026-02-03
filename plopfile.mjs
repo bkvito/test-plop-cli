@@ -19,6 +19,16 @@ export default (plop) => {
         default: (data) => data.rootPath || `src/components/platform`, 
       },
       {
+        type: 'list',
+        name: 'templateType',
+        message: '请选择组件模板(使用上下箭头进行选择):',
+        choices: [
+          { name: 'VUE普通组合式API组件模板', value: 'normal' },
+          { name: 'VUE的setup语法糖组件模板', value: 'setup' },
+        ],
+        default: 'normal'
+      },
+      {
         type: 'input',
         name: 'name',
         message: '请输入组件名称 (大驼峰):',
@@ -81,10 +91,16 @@ export default (plop) => {
         });
       }
 
+      const vueTemplateFile = data.templateType === 'setup' ? 'index.setup.vue.hbs' : 'index.vue.hbs';
+
       // 2. 生成文件列表 (统一配置)
       const templates = [
         { file: 'index.scss', data: { class: className } },
-        { file: 'index.vue', data: { class: className, componentName } },
+        { 
+            file: 'index.vue', 
+            templateFile: vueTemplateFile,
+            data: { class: className, componentName } 
+        },
         { file: 'typing.ts', data: { interfaceName: componentName } },
         { file: 'hook.ts', data: { componentName } },
         { file: 'index.ts', data: { componentName } },
@@ -96,7 +112,7 @@ export default (plop) => {
           type: 'add',
           force: true, // 既然上面已经处理了删除逻辑，这里 force: true 确保写入成功
           path: item.file === 'index.ts' ? `${targetFolder}/index.ts` : `${targetFolder}/src/${item.file}`,
-          templateFile: `${__dirname}/plop-templates/${item.file}.hbs`,
+          templateFile: `${__dirname}/plop-templates/${item.templateFile || item.file + '.hbs'}`,
           data: item.data,
         });
       });

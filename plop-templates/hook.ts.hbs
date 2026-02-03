@@ -1,12 +1,16 @@
-import { {{ componentName }}Props } from './typing'
+import { ref } from 'vue';
+import { data } from './data'
 import { useTimeline } from '@/hooks';
+import { {{ componentName }}Props } from './typing'
 import emitter, { useEmitter } from '@/base/toolkit';
-import { usePlatformStore, useProductStore } from '@/store';
+import { usePlatformStore, useProductStore, useGlobalStore } from '@/store';
+import { ButtonGroupItem } from '@/components/common/SinglePickButtonGroup';
 export const use{{componentName}} = (props: {{componentName}}Props) => {
     const model = ref<string>('')
     const platformStore = usePlatformStore();
     const productStore = useProductStore();
-    
+    const globalStore = useGlobalStore();
+
     useTimeline(model,({currentTime,productTypes})=>{
         // TODO  产品绑定时间轴，时间轴变化请求数据
     })
