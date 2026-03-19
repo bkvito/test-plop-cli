@@ -2,10 +2,10 @@
 
 A CLI tool for creating standardized Vue 3 + TypeScript + Sass public component templates.
 
-# USEAGE
+## USAGE
 
 ```bash
-# 此处以npm为例，yarn、pnpm同理
+#  create a components via npm
 npm create-vue-component-template --rootPath src/components/platform
 
 # or
