@@ -19,5 +19,8 @@
   "author": {
     "name": "young-man",
     "email": "2419445705@qq.com"
+  },
+  "package-info":{
+    "branch":"agent-cli"
   }
 }
