@@ -23,10 +23,10 @@ export default (plop) => {
         name: 'templateType',
         message: '请选择组件模板(使用上下箭头进行选择):',
         choices: [
-          { name: 'VUE普通组合式API组件模板', value: 'normal' },
           { name: 'VUE的setup语法糖组件模板', value: 'setup' },
+          { name: 'VUE普通组合式API组件模板', value: 'normal' },
         ],
-        default: 'normal'
+        default: 'setup'
       },
       {
         type: 'input',
