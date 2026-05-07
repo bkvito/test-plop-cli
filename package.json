@@ -1,10 +1,13 @@
 {
-  "name": "CVCT",
+  "name": "create-component-template-cli",
   "description": "create-vue-component-template,A CLI tool for creating standardized Vue 3 + TypeScript + Sass public component templates.",
   "version": "1.0.0",
   "type": "module",
+  "publishConfig": {
+    "access": "public"
+  },
   "bin": {
-    "cvct": "./bin/cli.mjs"
+    "cvct": "bin/cli.mjs"
   },
   "access": "public",
   "dependencies": {
@@ -20,7 +23,7 @@
     "name": "young-man",
     "email": "2419445705@qq.com"
   },
-  "package-info":{
-    "branch":"agent-cli"
+  "package-info": {
+    "branch": "agent-cli"
   }
 }
