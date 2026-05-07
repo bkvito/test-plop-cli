@@ -3,7 +3,10 @@
     "allow": [
       "Bash(gh auth:*)",
       "Bash(gh repo:*)",
-      "Bash(git filter-branch:*)"
+      "Bash(git filter-branch:*)",
+      "Bash(node bin/cli.mjs --help)",
+      "Bash(node bin/cli.mjs --version)",
+      "Bash(node bin/cli.mjs --name=TestComp --rootPath=src/components/platform)"
     ]
   }
 }

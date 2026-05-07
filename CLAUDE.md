@@ -4,37 +4,75 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-**create-vue-component-template** (CLI command: `cvct`) — a plop-based CLI scaffolding tool that generates Vue component directory structures with predefined templates. Published to npm as a global CLI utility.
+**create-vue-component-template** (CLI command: `cvct`) — a CLI scaffolding tool that generates Vue component directory structures with predefined templates. Published to npm as a global CLI utility.
 
 ## Commands
 
-```bash
-# Run the CLI locally (generates component templates interactively)
-node bin/cli.mjs
+### Non-Interactive Mode (for agents/CI)
 
-# Run with CLI arguments to skip prompts
+```bash
+# Generate a setup-syntax component
+node bin/cli.mjs --name=MyComponent --rootPath=src/components/platform
+
+# Generate a normal (defineComponent) component
 node bin/cli.mjs --name=MyComponent --rootPath=src/components/platform --templateType=normal
 
-# Version bump via changesets
+# Overwrite existing directory
+node bin/cli.mjs --name=MyComponent --rootPath=src/components/platform --collisionStrategy=overwrite
+
+# Strict non-interactive (error if missing required args)
+node bin/cli.mjs --name=MyComponent --rootPath=src/components/platform --nonInteractive
+
+# Help & version
+node bin/cli.mjs --help
+node bin/cli.mjs --version
+```
+
+### Interactive Mode (for humans)
+
+```bash
+# Run without args to enter plop interactive prompts
+node bin/cli.mjs
+```
+
+### Version bump via changesets
+
+```bash
 npx changeset          # create a changeset
 npx changeset version  # consume changesets, bump package.json
 ```
 
+## CLI Flags Reference
+
+| Flag | Required | Default | Description |
+|------|----------|---------|-------------|
+| `--name` | Yes (non-interactive) | — | Component name, PascalCase (e.g. `MyTest`) |
+| `--rootPath` | Yes (non-interactive) | — | Target directory (e.g. `src/components/platform`) |
+| `--templateType` | No | `setup` | `setup` = `<script setup>` + defineProps; `normal` = defineComponent + PropType |
+| `--collisionStrategy` | No | `skip` | `skip` = error if exists; `overwrite` = delete & regenerate |
+| `--nonInteractive` | No | false | Fail on missing args instead of prompting |
+| `--help` / `-h` | No | — | Print help text |
+| `--version` / `-v` | No | — | Print version |
+
 ## Architecture
 
-**Entry point:** `bin/cli.mjs` — bootstraps plop, loads `plopfile.mjs`, passes CLI args via minimist.
+**Entry point:** `bin/cli.mjs` — dispatches to non-interactive mode (`src/generate.mjs`) when all required CLI args are provided, otherwise falls back to plop interactive mode.
 
-**Core logic:** `plopfile.mjs` — defines a single plop generator (`create-component-template`) that:
-1. Prompts for: root path, template type (normal/setup), component name (PascalCase)
-2. Detects directory collisions and offers overwrite or retry
-3. Generates 6 files per component using Handlebars templates
+**Core generation:** `src/generate.mjs` — `generateComponent({ name, rootPath, templateType, collisionStrategy })` — pure function that:
+1. Validates inputs
+2. Converts case (PascalCase, kebab-case via `change-case`)
+3. Detects directory collisions (skip or overwrite)
+4. Renders `plop-templates/*.hbs` templates and writes files
+5. Returns `{ success, files, componentName, targetFolder }` or `{ success: false, error }`
 
-**Templates:** `plop-templates/*.hbs` — Handlebars files that produce the component output.
+**Interactive mode:** `plopfile.mjs` — plop generator for human interactive use.
+
+**Templates:** `plop-templates/*.hbs` — Handlebars-style template files.
 
 ### Two Template Modes
 
-- **normal** (`index.vue.hbs`): Options API with `defineComponent`, explicit props, and `setup()` function
-- **setup** (`index.setup.vue.hbs`): Composition API with `<script setup>`, `defineProps<>()`, and `defineOptions()`
+- **setup** (`index.setup.vue.hbs`): `<script setup>` + `defineProps<>()` + `defineOptions()`
+- **normal** (`index.vue.hbs`): `defineComponent` + `PropType` + `setup()` function
 
 ### Generated Component Structure
 
