@@ -1,0 +1,28 @@
+<template>
+  <div class="{{ class }}"></div>
+</template>
+
+<script lang="ts">
+import { defineComponent, PropType } from 'vue'
+import { {{ componentName }}Props } from './typing'
+import { use{{ componentName }} } from './hook'
+
+export default defineComponent({
+  name: '{{ componentName }}',
+  props: {
+    user: {
+      type: Object as PropType<{{ componentName }}Props['user']>,
+      required: false,
+    },
+  },
+  setup(props) {
+    const {} = use{{ componentName }}(props as {{ componentName }}Props)
+
+    return {}
+  },
+})
+</script>
+
+<style lang="scss" scoped>
+@import './index.scss';
+</style>

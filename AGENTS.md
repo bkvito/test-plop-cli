@@ -11,11 +11,14 @@ This file provides guidance to Codex (Codex.ai/code) when working with code in t
 ### Non-Interactive Mode (for agents/CI)
 
 ```bash
-# Generate a setup-syntax component
+# Generate a general business template with setup style
 node bin/cli.mjs --name=MyComponent --rootPath=src/components/platform
 
-# Generate a normal (defineComponent) component
-node bin/cli.mjs --name=MyComponent --rootPath=src/components/platform --templateType=normal
+# Generate a single-pick business template
+node bin/cli.mjs --name=MyComponent --rootPath=src/components/platform --templateType=single-pick
+
+# Generate a multiple-pick business template with defineComponent style
+node bin/cli.mjs --name=MyComponent --rootPath=src/components/platform --templateType=multiple-pick --vueTemplateType=normal
 
 # Overwrite existing directory
 node bin/cli.mjs --name=MyComponent --rootPath=src/components/platform --collisionStrategy=overwrite
@@ -48,7 +51,8 @@ npx changeset version  # consume changesets, bump package.json
 |------|----------|---------|-------------|
 | `--name` | Yes (non-interactive) | — | Component name, PascalCase (e.g. `MyTest`) |
 | `--rootPath` | Yes (non-interactive) | — | Target directory (e.g. `src/components/platform`) |
-| `--templateType` | No | `setup` | `setup` = `<script setup>` + defineProps; `normal` = defineComponent + PropType |
+| `--templateType` | No | `general` | `general` = 通用模板；`single-pick` = 产品组单选模板；`multiple-pick` = 产品组多选模板 |
+| `--vueTemplateType` | No | `setup` | `setup` = `<script setup>`；`normal` = `defineComponent` |
 | `--collisionStrategy` | No | `skip` | `skip` = error if exists; `overwrite` = delete & regenerate |
 | `--nonInteractive` | No | false | Fail on missing args instead of prompting |
 | `--help` / `-h` | No | — | Print help text |
@@ -69,10 +73,18 @@ npx changeset version  # consume changesets, bump package.json
 
 **Templates:** `plop-templates/*.hbs` — Handlebars-style template files.
 
-### Two Template Modes
+### Business Template Types
 
-- **setup** (`index.setup.vue.hbs`): `<script setup>` + `defineProps<>()` + `defineOptions()`
-- **normal** (`index.vue.hbs`): `defineComponent` + `PropType` + `setup()` function
+- **general**: 通用业务模板
+- **single-pick**: 产品组单选模板
+- **multiple-pick**: 产品组多选模板
+
+### Vue Template Styles
+
+- **setup** (`index.setup.vue.hbs`): `<script setup>` 风格
+- **normal** (`index.normal.vue.hbs`): `defineComponent` 风格
+
+Regardless of Vue style, the generated file name remains `src/index.vue`.
 
 ### Generated Component Structure
 

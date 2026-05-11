@@ -1,0 +1,22 @@
+<template>
+  <div class="{{ class }}">
+    <div v-for="item in selectedValues" :key="item">{{ item }}</div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { {{ componentName }}Props } from './typing'
+import { use{{ componentName }} } from './hook'
+
+defineOptions({
+  name: '{{ componentName }}',
+})
+
+const props = defineProps<{{ componentName }}Props>()
+
+const { selectedValues } = use{{ componentName }}(props)
+</script>
+
+<style lang="scss" scoped>
+@import './index.scss';
+</style>
