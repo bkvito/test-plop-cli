@@ -1,4 +1,16 @@
-# create-vue-component-template
+# create-vue-component-template-cli
+
+## 1.0.2
+
+### Patch Changes
+
+- npx cctc 运行命令更改
+
+## 1.0.1
+
+### Patch Changes
+
+- 添加三种业务组件模板
 
 ## 1.1.0
 

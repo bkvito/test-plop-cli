@@ -16,7 +16,7 @@ function printVersion() {
 
 function printHelp() {
   console.log(`
-cvct - Vue 组件模板生成器 (create-vue-component-template)
+cvct - Vue 组件模板生成器 (create-vue-component-template-cli)
 
 用法:
   cvct [选项]

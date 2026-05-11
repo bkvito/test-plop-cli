@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-**create-vue-component-template** (CLI command: `cvct`) — a CLI scaffolding tool that generates Vue component directory structures with predefined templates. Published to npm as a global CLI utility.
+**create-vue-component-template-cli** (CLI command: `cvct`) — a CLI scaffolding tool that generates Vue component directory structures with predefined templates. Published to npm as a global CLI utility.
 
 ## Commands
 

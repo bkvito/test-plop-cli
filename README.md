@@ -1,11 +1,19 @@
-# create-vue-component-template
+# create-component-template-cli
 
 一个用于快速创建 Vue 3 + TypeScript + Sass 组件骨架的 CLI 工具。
 
-## 用法
+## 使用方式
 
 ```bash
-# 交互模式
+# 通过包名直接执行（适合 npm / npx 用户）
+npx create-component-template-cli --version
+npx create-component-template-cli
+
+# 通过短命令执行
+npx cvct --version
+npx cvct
+
+# 本地开发调试
 node bin/cli.mjs
 
 # 非交互模式
@@ -14,7 +22,7 @@ node bin/cli.mjs --name=MyComponent --rootPath=src/components/platform
 # 指定业务模板类型
 node bin/cli.mjs --name=MyComponent --rootPath=src/components/platform --templateType=single-pick
 
-# 指定 index.vue 的 Vue 风格
+# 指定 index.vue 的 Vue 写法
 node bin/cli.mjs --name=MyComponent --rootPath=src/components/platform --templateType=multiple-pick --vueTemplateType=normal
 ```
 

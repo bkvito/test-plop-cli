@@ -1,13 +1,14 @@
 {
   "name": "create-component-template-cli",
-  "description": "create-vue-component-template,A CLI tool for creating standardized Vue 3 + TypeScript + Sass public component templates.",
-  "version": "1.0.0",
+  "description": "create-vue-component-template-cli,A CLI tool for creating standardized Vue 3 + TypeScript + Sass public component templates.",
+  "version": "1.0.2",
   "type": "module",
   "publishConfig": {
     "access": "public"
   },
   "bin": {
-    "cvct": "bin/cli.mjs"
+    "cctc": "bin/cli.mjs",
+    "create-component-template-cli": "bin/cli.mjs"
   },
   "access": "public",
   "dependencies": {
