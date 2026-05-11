@@ -76,3 +76,22 @@ npm run verify:template:all
 - `verify:template:check` 会自动断言生成的 `src/index.vue` 中是否包含关键片段，用于快速发现模板分流错误或变量替换错误
 
 如果你只想确认某一个 `.hbs` 是否生效，优先执行对应的 `verify:template:*` 命令，再打开 `tmp-output/template-verify/<组件名>/src/index.vue` 查看最终结果。
+
+## 自动化测试
+
+项目已接入 Vitest，用于覆盖生成函数和 CLI 真实入口。
+
+```bash
+# 运行正式测试
+npm run test
+
+# 开发时监听测试
+npm run test:watch
+```
+
+测试范围：
+
+- `tests/generate.test.mjs`：覆盖 `generateComponent()` 的模板组合、文件生成、变量替换、冲突策略和非法参数
+- `tests/cli.e2e.test.mjs`：通过 `node bin/cli.mjs` 覆盖版本输出、非交互生成和严格非交互失败路径
+
+一般模板文案或结构小改动，优先跑 `npm run test`。如果需要人工查看最终生成内容，再补跑 `npm run verify:template:all`。

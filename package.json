@@ -11,6 +11,8 @@
     "create-component-template-cli": "bin/cli.mjs"
   },
   "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
     "verify:template:general:setup": "node bin/cli.mjs --name=VerifyGeneralSetup --rootPath=tmp-output/template-verify --templateType=general --vueTemplateType=setup --collisionStrategy=overwrite",
     "verify:template:general:normal": "node bin/cli.mjs --name=VerifyGeneralNormal --rootPath=tmp-output/template-verify --templateType=general --vueTemplateType=normal --collisionStrategy=overwrite",
     "verify:template:single-pick:setup": "node bin/cli.mjs --name=VerifySinglePickSetup --rootPath=tmp-output/template-verify --templateType=single-pick --vueTemplateType=setup --collisionStrategy=overwrite",
@@ -28,7 +30,8 @@
     "plop": "^4.0.1"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.29.8"
+    "@changesets/cli": "^2.29.8",
+    "vitest": "^3.2.4"
   },
   "author": {
     "name": "young-man",
