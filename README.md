@@ -10,8 +10,8 @@ npx create-component-template-cli --version
 npx create-component-template-cli
 
 # 通过短命令执行
-npx cvct --version
-npx cvct
+npx cctc --version
+npx cctc
 
 # 本地开发调试
 node bin/cli.mjs
