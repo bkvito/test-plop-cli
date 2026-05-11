@@ -3,74 +3,200 @@ import path from 'node:path';
 import { execFileSync } from 'node:child_process';
 
 const ROOT_DIR = process.cwd();
-const OUTPUT_ROOT = path.join(ROOT_DIR, 'tmp-output', 'template-verify');
+const VERIFY_OUTPUT_ROOT = path.join(ROOT_DIR, 'tmp-output', 'template-verify');
 
 const TEMPLATE_CASES = [
   {
     componentName: 'VerifyGeneralSetup',
     templateType: 'general',
     vueTemplateType: 'setup',
-    expectedSnippets: [
-      "name: 'VerifyGeneralSetup'",
-      'script setup',
-      'useVerifyGeneralSetup',
-    ],
+    expectedFiles: {
+      'src/index.vue': [
+        "name: 'VerifyGeneralSetup'",
+        'script setup',
+        'useVerifyGeneralSetup',
+        'SinglePickButtonGroup',
+      ],
+      'src/typing.ts': [
+        'export interface VerifyGeneralSetupProps',
+        'productGroupIdentify: string;',
+        'viewType: keyof typeof ViewEnum;',
+      ],
+      'src/hook.ts': [
+        'export const useVerifyGeneralSetup',
+        "const model = ref<string>('')",
+        'const buttons: ButtonGroupItem[] = [',
+      ],
+      'src/data.ts': [
+        '样例数据',
+      ],
+      'index.ts': [
+        "import VerifyGeneralSetup from './src/index.vue'",
+        'export * from \'./src/typing\'',
+      ],
+    },
   },
   {
     componentName: 'VerifyGeneralNormal',
     templateType: 'general',
     vueTemplateType: 'normal',
-    expectedSnippets: [
-      "name: 'VerifyGeneralNormal'",
-      'defineComponent',
-      'useVerifyGeneralNormal',
-    ],
+    expectedFiles: {
+      'src/index.vue': [
+        "name: 'VerifyGeneralNormal'",
+        'defineComponent',
+        'useVerifyGeneralNormal',
+        'class="verify-general-normal"',
+      ],
+      'src/typing.ts': [
+        'export interface VerifyGeneralNormalProps',
+        'productGroupIdentify: string;',
+        'viewType: keyof typeof ViewEnum;',
+      ],
+      'src/hook.ts': [
+        'export const useVerifyGeneralNormal',
+        "const model = ref<string>('')",
+        'const buttons: ButtonGroupItem[] = [',
+      ],
+      'src/data.ts': [
+        '样例数据',
+      ],
+      'index.ts': [
+        "import VerifyGeneralNormal from './src/index.vue'",
+        'export * from \'./src/typing\'',
+      ],
+    },
   },
   {
     componentName: 'VerifySinglePickSetup',
     templateType: 'single-pick',
     vueTemplateType: 'setup',
-    expectedSnippets: [
-      "name: 'VerifySinglePickSetup'",
-      'script setup',
-      'useVerifySinglePickSetup',
-    ],
+    expectedFiles: {
+      'src/index.vue': [
+        "name: 'VerifySinglePickSetup'",
+        'script setup',
+        'useVerifySinglePickSetup',
+        '<SinglePickButtonGroup />',
+        'data-template-type="single-pick"',
+      ],
+      'src/typing.ts': [
+        'export interface VerifySinglePickSetupProps',
+        'modelValue?: string',
+        'export interface DataType',
+      ],
+      'src/hook.ts': [
+        'export const useVerifySinglePickSetup',
+        'const selectedValue = ref(props.modelValue ?? data[0]?.value ?? \'\')',
+      ],
+      'src/data.ts': [
+        'const data: Array<DataType> = [',
+        'export {',
+        'data,',
+      ],
+      'index.ts': [
+        "import VerifySinglePickSetup from './src/index.vue'",
+        'export * from \'./src/typing\'',
+      ],
+    },
   },
   {
     componentName: 'VerifySinglePickNormal',
     templateType: 'single-pick',
     vueTemplateType: 'normal',
-    expectedSnippets: [
-      "name: 'VerifySinglePickNormal'",
-      'defineComponent',
-      'useVerifySinglePickNormal',
-    ],
+    expectedFiles: {
+      'src/index.vue': [
+        "name: 'VerifySinglePickNormal'",
+        'defineComponent',
+        'useVerifySinglePickNormal',
+        'SinglePickButtonGroup,',
+        'data-template-type="single-pick"',
+      ],
+      'src/typing.ts': [
+        'export interface VerifySinglePickNormalProps',
+        'modelValue?: string',
+        'export interface DataType',
+      ],
+      'src/hook.ts': [
+        'export const useVerifySinglePickNormal',
+        'const selectedValue = ref(props.modelValue ?? data[0]?.value ?? \'\')',
+      ],
+      'src/data.ts': [
+        'const data: Array<DataType> = [',
+        'export {',
+        'data,',
+      ],
+      'index.ts': [
+        "import VerifySinglePickNormal from './src/index.vue'",
+        'export * from \'./src/typing\'',
+      ],
+    },
   },
   {
     componentName: 'VerifyMultiplePickSetup',
     templateType: 'multiple-pick',
     vueTemplateType: 'setup',
-    expectedSnippets: [
-      "name: 'VerifyMultiplePickSetup'",
-      'script setup',
-      'useVerifyMultiplePickSetup',
-    ],
+    expectedFiles: {
+      'src/index.vue': [
+        "name: 'VerifyMultiplePickSetup'",
+        'script setup',
+        'useVerifyMultiplePickSetup',
+        'v-for="item in selectedValues"',
+      ],
+      'src/typing.ts': [
+        'export interface VerifyMultiplePickSetupProps',
+        'modelValue?: string[]',
+        'export interface DataType',
+      ],
+      'src/hook.ts': [
+        'export const useVerifyMultiplePickSetup',
+        'const selectedValues = ref(props.modelValue ?? data.slice(0, 2).map((item) => item.value))',
+      ],
+      'src/data.ts': [
+        'const data: Array<DataType> = [',
+        'export {',
+        'data,',
+      ],
+      'index.ts': [
+        "import VerifyMultiplePickSetup from './src/index.vue'",
+        'export * from \'./src/typing\'',
+      ],
+    },
   },
   {
     componentName: 'VerifyMultiplePickNormal',
     templateType: 'multiple-pick',
     vueTemplateType: 'normal',
-    expectedSnippets: [
-      "name: 'VerifyMultiplePickNormal'",
-      'defineComponent',
-      'useVerifyMultiplePickNormal',
-    ],
+    expectedFiles: {
+      'src/index.vue': [
+        "name: 'VerifyMultiplePickNormal'",
+        'defineComponent',
+        'useVerifyMultiplePickNormal',
+        'modelValue: {',
+      ],
+      'src/typing.ts': [
+        'export interface VerifyMultiplePickNormalProps',
+        'modelValue?: string[]',
+        'export interface DataType',
+      ],
+      'src/hook.ts': [
+        'export const useVerifyMultiplePickNormal',
+        'const selectedValues = ref(props.modelValue ?? data.slice(0, 2).map((item) => item.value))',
+      ],
+      'src/data.ts': [
+        'const data: Array<DataType> = [',
+        'export {',
+        'data,',
+      ],
+      'index.ts': [
+        "import VerifyMultiplePickNormal from './src/index.vue'",
+        'export * from \'./src/typing\'',
+      ],
+    },
   },
 ];
 
-function cleanOutputRoot() {
-  fs.rmSync(OUTPUT_ROOT, { recursive: true, force: true });
-  fs.mkdirSync(OUTPUT_ROOT, { recursive: true });
+function cleanVerifyOutputRoot() {
+  fs.rmSync(VERIFY_OUTPUT_ROOT, { recursive: true, force: true });
+  fs.mkdirSync(VERIFY_OUTPUT_ROOT, { recursive: true });
 }
 
 function generateTemplate(templateCase) {
@@ -91,35 +217,53 @@ function generateTemplate(templateCase) {
   );
 }
 
-function assertGeneratedFiles(templateCase) {
-  const componentDir = path.join(OUTPUT_ROOT, templateCase.componentName);
-  const indexVuePath = path.join(componentDir, 'src', 'index.vue');
-  const indexVueContent = fs.readFileSync(indexVuePath, 'utf-8');
+function assertFileContainsSnippets(templateCase, relativeFilePath, expectedSnippets) {
+  const componentDir = path.join(VERIFY_OUTPUT_ROOT, templateCase.componentName);
+  const filePath = path.join(componentDir, ...relativeFilePath.split('/'));
 
-  for (const expectedSnippet of templateCase.expectedSnippets) {
-    // 这里校验“组件名 / Vue 写法 / hook 调用”三个关键片段，
-    // 原因是这三个片段最能反映模板分流和变量替换是否正确。
-    if (!indexVueContent.includes(expectedSnippet)) {
+  if (!fs.existsSync(filePath)) {
+    throw new Error(
+      [
+        `模板校验失败: ${templateCase.templateType}/${templateCase.vueTemplateType}`,
+        `缺少文件: ${relativeFilePath}`,
+        `实际路径: ${filePath}`,
+      ].join('\n'),
+    );
+  }
+
+  const fileContent = fs.readFileSync(filePath, 'utf-8');
+
+  for (const expectedSnippet of expectedSnippets) {
+    // 这里校验“文件存在 + 关键片段存在”两层信息。
+    // 这样设计的原因是：模板回归时既可能是文件没生成，也可能是变量替换或模板分流出错。
+    if (!fileContent.includes(expectedSnippet)) {
       throw new Error(
         [
           `模板校验失败: ${templateCase.templateType}/${templateCase.vueTemplateType}`,
+          `校验文件: ${relativeFilePath}`,
           `缺少关键片段: ${expectedSnippet}`,
-          `校验文件: ${indexVuePath}`,
+          `实际路径: ${filePath}`,
         ].join('\n'),
       );
     }
   }
 }
 
+function assertGeneratedFiles(templateCase) {
+  for (const [relativeFilePath, expectedSnippets] of Object.entries(templateCase.expectedFiles)) {
+    assertFileContainsSnippets(templateCase, relativeFilePath, expectedSnippets);
+  }
+}
+
 function main() {
-  cleanOutputRoot();
+  cleanVerifyOutputRoot();
 
   for (const templateCase of TEMPLATE_CASES) {
     generateTemplate(templateCase);
     assertGeneratedFiles(templateCase);
   }
 
-  console.log('✓ 所有模板生成与关键片段校验通过');
+  console.log('✓ 所有模板生成、文件存在性与关键片段校验通过');
 }
 
 main();

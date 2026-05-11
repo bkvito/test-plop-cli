@@ -1,5 +1,5 @@
 <template>
-  <div class="verify-single-pick-normal">
+  <div class="verify-single-pick-normal" data-template-type="single-pick">
     <SinglePickButtonGroup />
   </div>
 </template>
