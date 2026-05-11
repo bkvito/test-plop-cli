@@ -1,8 +1,8 @@
 import { ref } from 'vue'
-import type { {{ componentName }}Props } from './typing'
+import type { VerifyGeneralSetupProps } from './typing'
 import { ButtonGroupItem } from '@/components/common/SinglePickButtonGroup';
 
-export const use{{ componentName }} = (props: {{ componentName }}Props) => {
+export const useVerifyGeneralSetup = (props: VerifyGeneralSetupProps) => {
 
   const model = ref<string>('')
   const buttons: ButtonGroupItem[] = [

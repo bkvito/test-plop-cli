@@ -8,17 +8,17 @@
 </template>
 
 <script setup lang="ts">
-import { {{ componentName }}Props } from './typing'
-import { use{{ componentName }} } from './hook'
+import { VerifyGeneralSetupProps } from './typing'
+import { useVerifyGeneralSetup } from './hook'
 import SinglePickButtonGroup from '@/components/common/SinglePickButtonGroup';
 
 defineOptions({
-  name: '{{ componentName }}',
+  name: 'VerifyGeneralSetup',
 })
 
-const props = defineProps<{{ componentName }}Props>()
+const props = defineProps<VerifyGeneralSetupProps>()
 
-const { model, buttons } = use{{ componentName }}(props)
+const { model, buttons } = useVerifyGeneralSetup(props)
 </script>
 
 <style lang="scss" scoped>

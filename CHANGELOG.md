@@ -1,5 +1,11 @@
 # create-vue-component-template-cli
 
+## 1.0.4
+
+### Patch Changes
+
+- 修改 index.setup.vue.hbs 模板
+
 ## 1.0.3
 
 ### Patch Changes

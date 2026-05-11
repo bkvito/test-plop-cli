@@ -55,3 +55,24 @@ node bin/cli.mjs --name=MyComponent --rootPath=src/components/platform --templat
     ├── hook.ts
     └── data.ts
 ```
+
+## 本地验证模板改动
+
+当你手动修改 `plop-templates/**/*.hbs` 后，推荐优先使用非交互命令验证，避免在交互模式下误选模板类型。
+
+```bash
+# 验证单个模板输出
+npm run verify:template:general:setup
+npm run verify:template:single-pick:normal
+
+# 一次性验证全部模板组合，并自动检查生成的 index.vue 关键片段
+npm run verify:template:all
+```
+
+验证命令的行为说明：
+
+- 所有验证结果统一输出到 `tmp-output/template-verify/`
+- 每次验证都会覆盖旧的测试产物，避免残留文件干扰判断
+- `verify:template:check` 会自动断言生成的 `src/index.vue` 中是否包含关键片段，用于快速发现模板分流错误或变量替换错误
+
+如果你只想确认某一个 `.hbs` 是否生效，优先执行对应的 `verify:template:*` 命令，再打开 `tmp-output/template-verify/<组件名>/src/index.vue` 查看最终结果。
