@@ -87,11 +87,19 @@ npm run test
 
 # 开发时监听测试
 npm run test:watch
+
+# 模板输出变化符合预期时，更新快照
+npm run test:update-snapshot
+
+# 单独执行 npm pack 冒烟测试
+npm run test:pack
 ```
 
 测试范围：
 
 - `tests/generate.test.mjs`：覆盖 `generateComponent()` 的模板组合、文件生成、变量替换、冲突策略和非法参数
 - `tests/cli.e2e.test.mjs`：通过 `node bin/cli.mjs` 覆盖版本输出、非交互生成和严格非交互失败路径
+- `tests/template.snapshot.test.mjs`：覆盖六种模板组合的完整生成结果快照
+- `tests/package-smoke.test.mjs`：执行 `npm pack` 并检查发布包关键运行文件是否存在
 
 一般模板文案或结构小改动，优先跑 `npm run test`。如果需要人工查看最终生成内容，再补跑 `npm run verify:template:all`。

@@ -1,0 +1,514 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`template snapshots > matches generated output for general/normal 1`] = `
+{
+  "index.ts": "import SnapshotGeneralNormal from './src/index.vue'
+
+export default SnapshotGeneralNormal
+export * from './src/typing'
+",
+  "src/data.ts": "// 样例数据
+",
+  "src/hook.ts": "import { ref } from 'vue'
+import type { SnapshotGeneralNormalProps } from './typing'
+import { ButtonGroupItem } from '@/components/common/SinglePickButtonGroup';
+
+export const useSnapshotGeneralNormal = (props: SnapshotGeneralNormalProps) => {
+
+  const model = ref<string>('')
+  const buttons: ButtonGroupItem[] = [
+    {
+      key: 'button-1',
+      label: "button-1",
+      name: '1',
+    }
+  ]
+
+  return {
+    model,
+    buttons,
+  }
+}
+",
+  "src/index.scss": "
+",
+  "src/index.vue": "<template>
+  <div class="snapshot-general-normal"></div>
+</template>
+
+<script lang="ts">
+import { defineComponent, PropType } from 'vue'
+import { SnapshotGeneralNormalProps } from './typing'
+import { useSnapshotGeneralNormal } from './hook'
+
+export default defineComponent({
+  name: 'SnapshotGeneralNormal',
+  props: {
+    user: {
+      type: Object as PropType<SnapshotGeneralNormalProps['user']>,
+      required: false,
+    },
+  },
+  setup(props) {
+    const {} = useSnapshotGeneralNormal(props as SnapshotGeneralNormalProps)
+
+    return {}
+  },
+})
+</script>
+
+<style lang="scss" scoped>
+@import './index.scss';
+</style>
+",
+  "src/typing.ts": "import { BaseProps, ProductConfig } from '@/hooks/common/typing';
+import { ViewEnum } from '@/typing';
+
+export interface SnapshotGeneralNormalProps {
+  productGroupIdentify: string;
+  viewType: keyof typeof ViewEnum;
+  productConfig?: ProductConfig;
+}
+",
+}
+`;
+
+exports[`template snapshots > matches generated output for general/setup 1`] = `
+{
+  "index.ts": "import SnapshotGeneralSetup from './src/index.vue'
+
+export default SnapshotGeneralSetup
+export * from './src/typing'
+",
+  "src/data.ts": "// 样例数据
+",
+  "src/hook.ts": "import { ref } from 'vue'
+import type { SnapshotGeneralSetupProps } from './typing'
+import { ButtonGroupItem } from '@/components/common/SinglePickButtonGroup';
+
+export const useSnapshotGeneralSetup = (props: SnapshotGeneralSetupProps) => {
+
+  const model = ref<string>('')
+  const buttons: ButtonGroupItem[] = [
+    {
+      key: 'button-1',
+      label: "button-1",
+      name: '1',
+    }
+  ]
+
+  return {
+    model,
+    buttons,
+  }
+}
+",
+  "src/index.scss": "
+",
+  "src/index.vue": "<template>
+  <SinglePickButtonGroup
+    v-model:model-value="model"
+    :list="buttons"
+    :radioName="viewType"
+  >
+  </SinglePickButtonGroup>
+</template>
+
+<script setup lang="ts">
+import { SnapshotGeneralSetupProps } from './typing'
+import { useSnapshotGeneralSetup } from './hook'
+import SinglePickButtonGroup from '@/components/common/SinglePickButtonGroup';
+
+defineOptions({
+  name: 'SnapshotGeneralSetup',
+})
+
+const props = defineProps<SnapshotGeneralSetupProps>()
+
+const { model, buttons } = useSnapshotGeneralSetup(props)
+</script>
+
+<style lang="scss" scoped>
+@import './index.scss';
+// 不要在index.scss中使用v-bind()，它不生效。如果必须要用v-bind(),请在该文件内使用。
+</style>
+
+
+",
+  "src/typing.ts": "import { BaseProps, ProductConfig } from '@/hooks/common/typing';
+import { ViewEnum } from '@/typing';
+
+export interface SnapshotGeneralSetupProps {
+  productGroupIdentify: string;
+  viewType: keyof typeof ViewEnum;
+  productConfig?: ProductConfig;
+}
+",
+}
+`;
+
+exports[`template snapshots > matches generated output for multiple-pick/normal 1`] = `
+{
+  "index.ts": "import SnapshotMultiplePickNormal from './src/index.vue'
+
+export default SnapshotMultiplePickNormal
+export * from './src/typing'
+",
+  "src/data.ts": "import type { DataType } from './typing'
+
+const data: Array<DataType> = [
+  {
+    label: '多选项1',
+    value: 'multiple-1',
+  },
+  {
+    label: '多选项2',
+    value: 'multiple-2',
+  },
+  {
+    label: '多选项3',
+    value: 'multiple-3',
+  },
+]
+
+export {
+  data,
+}
+",
+  "src/hook.ts": "import { ref } from 'vue'
+import { data } from './data'
+import type { SnapshotMultiplePickNormalProps } from './typing'
+
+export const useSnapshotMultiplePickNormal = (props: SnapshotMultiplePickNormalProps) => {
+  const selectedValues = ref(props.modelValue ?? data.slice(0, 2).map((item) => item.value))
+
+  return {
+    selectedValues,
+  }
+}
+",
+  "src/index.scss": ".snapshot-multiple-pick-normal {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+",
+  "src/index.vue": "<template>
+  <div class="snapshot-multiple-pick-normal">
+    <div v-for="item in selectedValues" :key="item">{{ item }}</div>
+  </div>
+</template>
+
+<script lang="ts">
+import { defineComponent, PropType } from 'vue'
+import { SnapshotMultiplePickNormalProps } from './typing'
+import { useSnapshotMultiplePickNormal } from './hook'
+
+export default defineComponent({
+  name: 'SnapshotMultiplePickNormal',
+  props: {
+    user: {
+      type: Object as PropType<SnapshotMultiplePickNormalProps['user']>,
+      required: false,
+    },
+    modelValue: {
+      type: Array as PropType<SnapshotMultiplePickNormalProps['modelValue']>,
+      required: false,
+      default: () => [],
+    },
+  },
+  setup(props) {
+    const { selectedValues } = useSnapshotMultiplePickNormal(props as SnapshotMultiplePickNormalProps)
+
+    return {
+      selectedValues,
+    }
+  },
+})
+</script>
+
+<style lang="scss" scoped>
+@import './index.scss';
+</style>
+",
+  "src/typing.ts": "export enum SnapshotMultiplePickNormalEnum {
+  DEFAULT = 'default',
+}
+
+export interface SnapshotMultiplePickNormalProps {
+  user?: Record<string, any>
+  modelValue?: string[]
+}
+
+export interface DataType {
+  label: string
+  value: string
+}
+",
+}
+`;
+
+exports[`template snapshots > matches generated output for multiple-pick/setup 1`] = `
+{
+  "index.ts": "import SnapshotMultiplePickSetup from './src/index.vue'
+
+export default SnapshotMultiplePickSetup
+export * from './src/typing'
+",
+  "src/data.ts": "import type { DataType } from './typing'
+
+const data: Array<DataType> = [
+  {
+    label: '多选项1',
+    value: 'multiple-1',
+  },
+  {
+    label: '多选项2',
+    value: 'multiple-2',
+  },
+  {
+    label: '多选项3',
+    value: 'multiple-3',
+  },
+]
+
+export {
+  data,
+}
+",
+  "src/hook.ts": "import { ref } from 'vue'
+import { data } from './data'
+import type { SnapshotMultiplePickSetupProps } from './typing'
+
+export const useSnapshotMultiplePickSetup = (props: SnapshotMultiplePickSetupProps) => {
+  const selectedValues = ref(props.modelValue ?? data.slice(0, 2).map((item) => item.value))
+
+  return {
+    selectedValues,
+  }
+}
+",
+  "src/index.scss": ".snapshot-multiple-pick-setup {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+",
+  "src/index.vue": "<template>
+  <div class="snapshot-multiple-pick-setup">
+    <div v-for="item in selectedValues" :key="item">{{ item }}</div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { SnapshotMultiplePickSetupProps } from './typing'
+import { useSnapshotMultiplePickSetup } from './hook'
+
+defineOptions({
+  name: 'SnapshotMultiplePickSetup',
+})
+
+const props = defineProps<SnapshotMultiplePickSetupProps>()
+
+const { selectedValues } = useSnapshotMultiplePickSetup(props)
+</script>
+
+<style lang="scss" scoped>
+@import './index.scss';
+</style>
+",
+  "src/typing.ts": "export enum SnapshotMultiplePickSetupEnum {
+  DEFAULT = 'default',
+}
+
+export interface SnapshotMultiplePickSetupProps {
+  user?: Record<string, any>
+  modelValue?: string[]
+}
+
+export interface DataType {
+  label: string
+  value: string
+}
+",
+}
+`;
+
+exports[`template snapshots > matches generated output for single-pick/normal 1`] = `
+{
+  "index.ts": "import SnapshotSinglePickNormal from './src/index.vue'
+
+export default SnapshotSinglePickNormal
+export * from './src/typing'
+",
+  "src/data.ts": "import type { DataType } from './typing'
+
+const data: Array<DataType> = [
+  {
+    label: '单选项1',
+    value: 'single-1',
+  },
+  {
+    label: '单选项2',
+    value: 'single-2',
+  },
+]
+
+export {
+  data,
+}
+",
+  "src/hook.ts": "import { ref } from 'vue'
+import { data } from './data'
+import type { SnapshotSinglePickNormalProps } from './typing'
+
+export const useSnapshotSinglePickNormal = (props: SnapshotSinglePickNormalProps) => {
+  const selectedValue = ref(props.modelValue ?? data[0]?.value ?? '')
+
+  return {
+    selectedValue,
+  }
+}
+",
+  "src/index.scss": ".snapshot-single-pick-normal {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+",
+  "src/index.vue": "<template>
+  <div class="snapshot-single-pick-normal" data-template-type="single-pick">
+    <SinglePickButtonGroup />
+  </div>
+</template>
+
+<script lang="ts">
+import { defineComponent, PropType } from 'vue'
+import SinglePickButtonGroup from '@/components/common/SinglePickButtonGroup'
+import { SnapshotSinglePickNormalProps } from './typing'
+import { useSnapshotSinglePickNormal } from './hook'
+
+export default defineComponent({
+  name: 'SnapshotSinglePickNormal',
+  components: {
+    SinglePickButtonGroup,
+  },
+  props: {
+    user: {
+      type: Object as PropType<SnapshotSinglePickNormalProps['user']>,
+      required: false,
+    },
+  },
+  setup(props) {
+    const { selectedValue } = useSnapshotSinglePickNormal(props as SnapshotSinglePickNormalProps)
+
+    return {
+      selectedValue,
+    }
+  },
+})
+</script>
+
+<style lang="scss" scoped>
+@import './index.scss';
+</style>
+",
+  "src/typing.ts": "export enum SnapshotSinglePickNormalEnum {
+  DEFAULT = 'default',
+}
+
+export interface SnapshotSinglePickNormalProps {
+  user?: Record<string, any>
+  modelValue?: string
+}
+
+export interface DataType {
+  label: string
+  value: string
+}
+",
+}
+`;
+
+exports[`template snapshots > matches generated output for single-pick/setup 1`] = `
+{
+  "index.ts": "import SnapshotSinglePickSetup from './src/index.vue'
+
+export default SnapshotSinglePickSetup
+export * from './src/typing'
+",
+  "src/data.ts": "import type { DataType } from './typing'
+
+const data: Array<DataType> = [
+  {
+    label: '单选项1',
+    value: 'single-1',
+  },
+  {
+    label: '单选项2',
+    value: 'single-2',
+  },
+]
+
+export {
+  data,
+}
+",
+  "src/hook.ts": "import { ref } from 'vue'
+import { data } from './data'
+import type { SnapshotSinglePickSetupProps } from './typing'
+
+export const useSnapshotSinglePickSetup = (props: SnapshotSinglePickSetupProps) => {
+  const selectedValue = ref(props.modelValue ?? data[0]?.value ?? '')
+
+  return {
+    selectedValue,
+  }
+}
+",
+  "src/index.scss": ".snapshot-single-pick-setup {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+",
+  "src/index.vue": "<template>
+  <div class="snapshot-single-pick-setup" data-template-type="single-pick">
+    <SinglePickButtonGroup />
+  </div>
+</template>
+
+<script setup lang="ts">
+import SinglePickButtonGroup from '@/components/common/SinglePickButtonGroup'
+import { SnapshotSinglePickSetupProps } from './typing'
+import { useSnapshotSinglePickSetup } from './hook'
+
+defineOptions({
+  name: 'SnapshotSinglePickSetup',
+})
+
+const props = defineProps<SnapshotSinglePickSetupProps>()
+
+const { selectedValue } = useSnapshotSinglePickSetup(props)
+</script>
+
+<style lang="scss" scoped>
+@import './index.scss';
+</style>
+",
+  "src/typing.ts": "export enum SnapshotSinglePickSetupEnum {
+  DEFAULT = 'default',
+}
+
+export interface SnapshotSinglePickSetupProps {
+  user?: Record<string, any>
+  modelValue?: string
+}
+
+export interface DataType {
+  label: string
+  value: string
+}
+",
+}
+`;

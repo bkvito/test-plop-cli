@@ -13,6 +13,8 @@
   "scripts": {
     "test": "vitest run",
     "test:watch": "vitest",
+    "test:update-snapshot": "vitest run tests/template.snapshot.test.mjs -u",
+    "test:pack": "vitest run tests/package-smoke.test.mjs",
     "verify:template:general:setup": "node bin/cli.mjs --name=VerifyGeneralSetup --rootPath=tmp-output/template-verify --templateType=general --vueTemplateType=setup --collisionStrategy=overwrite",
     "verify:template:general:normal": "node bin/cli.mjs --name=VerifyGeneralNormal --rootPath=tmp-output/template-verify --templateType=general --vueTemplateType=normal --collisionStrategy=overwrite",
     "verify:template:single-pick:setup": "node bin/cli.mjs --name=VerifySinglePickSetup --rootPath=tmp-output/template-verify --templateType=single-pick --vueTemplateType=setup --collisionStrategy=overwrite",
